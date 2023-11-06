@@ -1,0 +1,24 @@
+.poke-card {
+    cursor: pointer;
+}
+
+.pokemon-img {
+    width: 100px;
+    height: 100px;
+}
+
+.searchPokemon{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.planta{
+    background-color: rgb(24, 255, 24);
+}
+.fuego{
+    background-color: rgb(255, 57, 57);
+}
+.agua{
+    background-color: aqua;
+}

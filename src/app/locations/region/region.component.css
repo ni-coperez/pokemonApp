@@ -1,0 +1,6 @@
+.volver{
+    overflow: hidden;
+    position: relative;
+    top: 0;
+    cursor: pointer;
+}
