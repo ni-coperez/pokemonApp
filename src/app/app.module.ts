@@ -9,6 +9,7 @@ import { ComponentsModule } from './components/components.module';
 import { PipesModule } from './pipes/pipes.module';
 import { LocationsModule } from './locations/locations.module';
 import { ItemsModule } from './items/items.module';
+import { authGuard } from './auth.guard';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ItemsModule } from './items/items.module';
     ComponentsModule,
     PipesModule,
     LocationsModule,
-    ItemsModule
+    ItemsModule,
+    
   ],
   exports: [],
   providers: [],

@@ -9,6 +9,8 @@ import { PokemonDetailsCardComponent } from './pokemon-details-card/pokemon-deta
 import { NgxPaginationModule } from 'ngx-pagination';
 import { LoadingComponent } from './loading/loading.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -21,12 +23,14 @@ import { PipesModule } from '../pipes/pipes.module';
     PokemonMovesComponent,
     PokemonDetailsCardComponent,
     LoadingComponent,
+    PageNotFoundComponent,
   ],
   exports: [LoadingComponent],
   imports: [
     CommonModule,
     NgxPaginationModule,
-    PipesModule
+    PipesModule,
+    RouterModule
   ]
 })
 export class ComponentsModule { }

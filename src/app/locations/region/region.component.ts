@@ -6,6 +6,7 @@ import { PokedexResponse, PokemonEntry } from '../interfaces/PokedexResponse';
 import { PokemonService } from 'src/app/services/pokemon.service';
 import { SpeciesReponse } from '../interfaces/SpeciesReponse';
 import { PokemonDetailsResponse } from 'src/app/components/interfaces/PokemonDetailsResponse.interface';
+import { combineLatest, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-region',
@@ -22,6 +23,7 @@ export class RegionComponent implements OnInit {
   public limit: number = 0;
   public offset: number = 0;
   public loading: boolean = false
+  public pkm: any[] = []
 
   constructor(private locServ: LocationService, private actvRout: ActivatedRoute,
     private router: Router, private pokeServ: PokemonService) {
@@ -51,7 +53,6 @@ export class RegionComponent implements OnInit {
     this.getInfoPokedex(url);
     console.log(this.speciesInfo)
     //console.log(this.speciesInfo[0].varieties[0].pokemon.url)
-    //this.getPokemons();
   }
 
   getInfoPokedex(url: string) {
@@ -64,12 +65,14 @@ export class RegionComponent implements OnInit {
   }
 
   getInfoSpecies() {
-    this.pokedexInfo.forEach(res => {
-      this.pokeServ.getPokemonByQuery(res.pokemon_species.url).subscribe((res: any) => {
+    const requests = this.pokedexInfo.map(res => this.pokeServ.getPokemonByQuery(res.pokemon_species.url));
+    forkJoin(requests).subscribe((responses: any[]) => {
+      responses.forEach(res => {
         this.speciesInfo.push(res);
         this.speciesInfo.sort((a, b) => a.id - b.id);
-      })
-    })
+      });
+      this.getPokemons(); // Llamamos a getPokemons una vez se hayan completado todas las llamadas
+    });
   }
 
   getPokemon() {
@@ -81,7 +84,8 @@ export class RegionComponent implements OnInit {
     //Divido el species de 10 en 10 
     this.limit += 10;
     this.speciesInfo.splice(this.offset, this.limit).forEach(res => {
-      console.log(res)
+      this.pkm.push(res)
+      console.log(this.pkm)
     })
     this.offset += 10;
   }

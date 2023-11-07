@@ -23,6 +23,26 @@ export class PokemonService {
     return this.http.get<PokemonDetailsResponse>(query);
   }
 
+  pokemonType(id: number): Observable<boolean> {
+    return new Observable<boolean>(observer => {
+      let isFireType = false;
+      this.getPokemonById(id).subscribe(pokemon => {
+        const types = pokemon.types;
+        for (let index = 0; index < types.length; index++) {
+          if (types[index].type.name.includes('fire')) {
+            isFireType = true;
+            break;
+          }
+        }
+        observer.next(isFireType);
+        observer.complete();
+      }, error => {
+        // Manejar errores si es necesario
+        observer.error(error);
+      });
+    });
+  }
+
 }
 
 const baseUrl: string = 'https://pokeapi.co/api/v2/';
