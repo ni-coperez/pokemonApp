@@ -50,9 +50,13 @@ export class RegionComponent implements OnInit {
 
   getPokedex(url: string) {
     if (url.length === 0) { return; }
+    //Cada vez que llamemos una pokedex, reestablecemos los arrays que almacenan la informacion y el limite de la division de pokemon
+    //la reestablecemos a 0 por si le habiamos dado anteriormente
+    this.speciesInfo = [];
+    this.pkm = [];
+    this.limit = 0;
     this.getInfoPokedex(url);
     console.log(this.speciesInfo)
-    //console.log(this.speciesInfo[0].varieties[0].pokemon.url)
   }
 
   getInfoPokedex(url: string) {
