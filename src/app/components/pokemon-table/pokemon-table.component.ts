@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { PokemonService } from 'src/app/services/pokemon.service';
 import { PokemonDetailsResponse } from '../interfaces/PokemonDetailsResponse.interface';
 import { PokemonResponse } from '../interfaces/PokemonResponse';
-import { Subscription } from 'rxjs'
+import { Subscription, from, take } from 'rxjs'
 @Component({
   selector: 'app-pokemon-table',
   templateUrl: './pokemon-table.component.html',
@@ -16,14 +16,16 @@ export class PokemonTableComponent implements OnInit, OnDestroy {
   public limit: number = 10;
   public offset: number = 0;
   public totalPokemons: number = 0;
-  pokemonResults?: Subscription;
+  pokemonResultsSubscription?: Subscription;
+  pokemonInfoSubscription?: Subscription;
 
   constructor(private pokeService: PokemonService, private router: Router) {
 
   }
 
   ngOnDestroy(): void {
-    this.pokemonResults?.unsubscribe();
+    this.pokemonResultsSubscription?.unsubscribe();
+    this.pokemonInfoSubscription?.unsubscribe();
     console.log('Desuscrito')
   }
 
@@ -37,7 +39,7 @@ export class PokemonTableComponent implements OnInit, OnDestroy {
   }
 
   getPokemonResults() {
-    this.pokemonResults = this.pokeService.getPokemons(this.limit, this.offset).subscribe((pokemons: PokemonResponse) => {
+    this.pokemonResultsSubscription = this.pokeService.getPokemons(this.limit, this.offset).subscribe((pokemons: PokemonResponse) => {
       this.pokemonNoInfo = pokemons
       this.totalPokemons = this.pokemonNoInfo.count
       this.getPokemonsInfo();
@@ -46,8 +48,10 @@ export class PokemonTableComponent implements OnInit, OnDestroy {
   }
 
   getPokemonsInfo() {
-    this.pokemonNoInfo.results.forEach((pokemon: any) => {
-      this.pokeService.getPokemonByQuery(pokemon.url).subscribe((resp: PokemonDetailsResponse) => {
+    /*Con from creo un observable a partir de un array y con take(1) indico que solo me devuelva 1 resultado
+    */
+    from(this.pokemonNoInfo.results).pipe(take(1)).forEach((pokemon: any) => {
+      this.pokemonInfoSubscription = this.pokeService.getPokemonByQuery(pokemon.url).subscribe((resp: PokemonDetailsResponse) => {
         this.pokemons.push(resp);
         this.pokemons.sort((a, b) => a.id - b.id);
       })
