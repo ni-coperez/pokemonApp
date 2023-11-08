@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, Router } from "@angular/router";
+import { Injectable, inject } from "@angular/core";
+import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, Router, RouterStateSnapshot } from "@angular/router";
 import { PokemonService } from "./services/pokemon.service";
 import { Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
@@ -7,7 +7,7 @@ import { catchError, map } from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
-export class authGuard implements CanActivate {
+export class authGuard {
   constructor(private pokeServ: PokemonService, private router: Router) { }
 
   canActivate(next: ActivatedRouteSnapshot): Observable<boolean> {
@@ -34,4 +34,9 @@ export class authGuard implements CanActivate {
       return of(false);
     }
   }
+}
+
+//Metodo 1 para quitar el metodo deprecated
+export const AuthGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> => {
+  return inject(authGuard).canActivate(next);
 }

@@ -8,10 +8,11 @@ import { RegionComponent } from './locations/region/region.component';
 import { authGuard } from './auth.guard';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { LoginComponent } from './components/login/login.component';
+import { authFnGuard } from './guards/auth-fn.guard';
 
 const routes: Routes = [
   { path: 'pokemons', component: PokemonTableComponent },
-  { path: 'pokemon/:id', component: PokemonDetailsComponent, canActivate: [authGuard] },
+  { path: 'pokemon/:id', component: PokemonDetailsComponent, canActivate: [authFnGuard] },
   { path: 'locations', component: LocationInfoComponent },
   { path: 'region/:id', component: RegionComponent },
   { path: 'items', component: ItemInfoComponent },
