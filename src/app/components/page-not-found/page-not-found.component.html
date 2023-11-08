@@ -5,7 +5,7 @@
             <p class="card-text">To be able to see fire type pokemon you need to be logged in. Click <span
                     class="span-home" (click)="backHome()">here</span> to go back home</p>
             <div class="d-flex justify-content-around">
-                <a routerLink="/log-in" class="card-link">Log in</a>
+                <a (click)="logIn()" class="card-link">Log in</a>
                 <a routerLink="register" class="card-link">Dont have an account?</a>
             </div>
         </div>

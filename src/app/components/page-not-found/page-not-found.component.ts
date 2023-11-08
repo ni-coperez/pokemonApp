@@ -8,10 +8,14 @@ import { Router } from '@angular/router';
 })
 export class PageNotFoundComponent {
 
+
   constructor(private router: Router) { }
 
   backHome() {
     this.router.navigate(['pokemons']);
+  }
+  logIn() {
+    this.router.navigate(['login']);
   }
 
 }

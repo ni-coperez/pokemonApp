@@ -7,6 +7,7 @@ import { ItemInfoComponent } from './items/item-info/item-info.component';
 import { RegionComponent } from './locations/region/region.component';
 import { authGuard } from './auth.guard';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   { path: 'pokemons', component: PokemonTableComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'locations', component: LocationInfoComponent },
   { path: 'region/:id', component: RegionComponent },
   { path: 'items', component: ItemInfoComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'page-not-found', component: PageNotFoundComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'pokemons' },
 

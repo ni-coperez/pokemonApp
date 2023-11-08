@@ -11,6 +11,8 @@ import { LoadingComponent } from './loading/loading.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RouterModule } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -24,13 +26,15 @@ import { RouterModule } from '@angular/router';
     PokemonDetailsCardComponent,
     LoadingComponent,
     PageNotFoundComponent,
+    LoginComponent,
   ],
   exports: [LoadingComponent],
   imports: [
     CommonModule,
     NgxPaginationModule,
     PipesModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ]
 })
 export class ComponentsModule { }
