@@ -16,13 +16,12 @@ export class LoginService {
       tap(res => {
         //debugger;
         if (res) {
-          for (let i = 0; i < res.length; i++) {
-            if (res[i].email == username && res[i].password == password) {
-              alert('Inicio de sesion correcto');
-              this.router.navigate(['pokemon', 4]);
-            } else {
-              alert('Inicio de sesion incorrecto');
-            }
+          const authorized = res.filter((user: any) => user.email == username && user.password == password);
+          if (authorized) {
+            alert('Usuario autorizado');
+            this.router.navigate(['/pokemons']);
+          } else {
+            alert('Usuario no autorizado');
           }
         } else {
           alert('No se han recogido los usuarios del interceptor');

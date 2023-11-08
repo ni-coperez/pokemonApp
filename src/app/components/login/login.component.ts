@@ -10,7 +10,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent {
 
-  public username: string = '';
+  public email: string = '';
   public password: string = '';
 
   constructor(private logServ: LoginService, private router: Router) {
@@ -21,9 +21,9 @@ export class LoginComponent {
 
     if (form.invalid) { return; }
 
-    const {username, password} = form.value;
+    const { email, password } = form.value;
 
-    this.logServ.logIn(username, password);
+    this.logServ.logIn(email, password);
 
   }
 
